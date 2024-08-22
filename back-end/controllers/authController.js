@@ -167,10 +167,35 @@ const update_user_profile = async (req, res) => {
     }
 }
 
+
+
+// delete_user_by_username function//
+const delete_user_by_username = async (req, res) => {
+    try {
+        const { username } = req.body; // Extracts the 'username' from the request body
+
+        if (!username) {
+            return res.status(400).json({ message: "Username is required" }); // indicates that username is required if 'username' is not provided
+        }
+
+        const user = await UserModel.findOne({ where: { username } }); // Looks for a user in the database with the given 'username'
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" }); // Returns a 404 status and indicate that user is not found if the user does not exist
+        }
+
+        await UserModel.destroy({ where: { username } }); // Deletes a user from the database where the username matches the provided value
+        return res.status(200).json({ message: `User ${username} deleted successfully` }); // success message if deleted successfully
+    } catch (error) {
+        return res.status(500).json({ message: "An error occurred", error });// error message if deleting fails
+    }
+};
+
 module.exports = {
     login,
     logout,
     register,
     load_user_profile,
-    update_user_profile
+    update_user_profile,
+    delete_user_by_username
 }
