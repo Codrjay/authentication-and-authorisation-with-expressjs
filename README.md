@@ -1,7 +1,5 @@
 # authentication-and-authorisation-with-expressjs
-# Understanding User Deletion and Access Control
-
-## Why "Delete User Functionality After Authentication" Might Not Be Enough
+## Why "Delete User Functionality After Authentication" is not really a good idea
 
 Allowing users to delete accounts just because they’re logged in (authenticated) is risky. Authentication checks if someone is who they say they are, but it doesn’t check if they should be allowed to delete other users. This can create security issues.
 
